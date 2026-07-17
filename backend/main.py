@@ -19,6 +19,15 @@ import pdf_generator
 
 app = FastAPI(title="AI Vehicle Defect Detection API", version="1.0.0")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://ab-inspectai.vercel.app",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Setup directories
 UPLOAD_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "uploads")
 ORIGINAL_DIR = os.path.join(UPLOAD_DIR, "original")
