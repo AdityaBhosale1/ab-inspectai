@@ -56,39 +56,42 @@ def startup_event():
 # --- AUTH ENDPOINTS ---
 
 @app.post("/api/auth/register", response_model=schemas.UserResponse)
-def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = db.query(User).filter(User.username == user.username).first()
-    if db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
-    
-    db_email = db.query(User).filter(User.email == user.email).first()
-    if db_email:
-        raise HTTPException(status_code=400, detail="Email already registered")
-        
-    hashed_password = auth.get_password_hash(user.password)
-    new_user = User(
-        username=user.username,
-        email=user.email,
-        hashed_password=hashed_password,
-        role=user.role or "Inspector",
-        profile_pic=f"https://api.dicebear.com/7.x/bottts/svg?seed={user.username}"  # Elegant default avatar
-    )
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user
+def register(...):
+    ...
+
 
 @app.post("/api/auth/login", response_model=schemas.Token)
 def login(username: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+
+    print("USERNAME:", username)
+    print("PASSWORD LENGTH:", len(password))
+
     user = db.query(User).filter(User.username == username).first()
-    if not user or not auth.verify_password(password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+
+    print("USER:", user)
+
+    if user:
+        print("HASH:", user.hashed_password)
+        print("HASH LENGTH:", len(user.hashed_password))
+
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+
+    try:
+        valid = auth.verify_password(password, user.hashed_password)
+    except Exception as e:
+        print("BCRYPT ERROR:", e)
+        raise HTTPException(status_code=500, detail=str(e))
+
+    if not valid:
+        raise HTTPException(status_code=401, detail="Wrong password")
+
     access_token = auth.create_access_token(data={"sub": user.username})
-    return {"access_token": access_token, "token_type": "bearer"}
+
+    return {
+        "access_token": access_token,
+        "token_type": "bearer"
+    }
 
 @app.get("/api/auth/profile", response_model=schemas.UserResponse)
 def get_profile(current_user: User = Depends(auth.get_current_user)):
