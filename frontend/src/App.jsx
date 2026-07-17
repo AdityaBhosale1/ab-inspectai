@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { LineChart, BarChart, DonutChart, SeverityBarChart } from './components/Charts';
 
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "https://ab-inspectai.onrender.com";
 
 function App() {
   const [activePage, setActivePage] = useState('home');
