@@ -24,19 +24,23 @@ The system helps reduce manual inspection effort and provides a faster and smart
 
 ### 🏠 Home Page
 
-![Home Page](home.png)
+<img width="945" height="476" alt="Screenshot 2026-07-18 140552" src="https://github.com/user-attachments/assets/04094f2f-42fc-4139-88c5-22df92ff4434" />
+
 
 ### 🔐 Login Page
 
-![Login Page](login.png)
+<img width="940" height="494" alt="Screenshot 2026-07-18 141023" src="https://github.com/user-attachments/assets/4ed9ed67-d0be-4de8-947f-2efc77661775" />
+
 
 ### 📤 Vehicle Image Upload
 
-![Upload Page](upload.png)
+<img width="941" height="473" alt="Screenshot 2026-07-18 140619" src="https://github.com/user-attachments/assets/84917bd3-f1e5-4209-89c9-5f8fbf262a14" />
+
 
 ### 🔍 AI Inspection Result
 
-![Inspection Result](result.png)
+<img width="939" height="490" alt="Screenshot 2026-07-18 140606" src="https://github.com/user-attachments/assets/7a6f5f25-e07f-4e2f-8da4-d4f70b97ad54" />
+
 
 ---
 
